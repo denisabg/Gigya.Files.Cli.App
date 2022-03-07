@@ -1,1 +1,1 @@
-Gygia.Files.Cli.App
+Gigya.Files.Cli.App
