@@ -57,41 +57,6 @@ namespace Gygia.Files.Cli.App
             
             IMediator mediator = BuildMediator();
 
-            // Implement command factory:
-            //
-            //INotification cmd = null;
-            //switch (cmdType.ToLowerInvariant())
-            //{
-            //    case "list" :  cmd = new ListCommand()
-            //        {
-            //            Path =  GetCurrentDirectory(),
-            //            Option = props.ToArray().Length > 1 ? props.ToArray()[1] : null,
-            //        };
-            //        break;
-            //    case "makedir" :  cmd = new MakedirCommand()
-            //        {
-            //            Path =  GetCurrentDirectory(),
-            //            Name =  "newDir"
-            //        };
-            //        break;
-            //    case "remove" :  cmd = new RemoveCommand()
-            //        {
-            //            Path =  GetCurrentDirectory(),
-            //        };
-            //        break;
-            //    case "move" :  cmd = new MoveCommand()
-            //        {
-            //            SourcePath =   props.ToArray()[1],
-            //            TargetPath =   props.ToArray()[2]
-            //        };
-            //        break;
-            //    case "copy" :  cmd = new MoveCommand()
-            //        {
-            //            SourcePath =  props.ToArray()[1],
-            //            TargetPath =   props.ToArray()[2]
-            //        };
-            //        break;
-            //};
             INotification cmd = cmdType.ToLowerInvariant() switch
             {
                 "list" => new ListCommand()
@@ -101,7 +66,7 @@ namespace Gygia.Files.Cli.App
                 "makedir" => new MakedirCommand() { Path = GetCurrentDirectory(), Name = "newDir" },
                 "remove" => new RemoveCommand() { Path = GetCurrentDirectory(), },
                 "move" => new MoveCommand() { SourcePath = props.ToArray()[1], TargetPath = props.ToArray()[2] },
-                "copy" => new MoveCommand() { SourcePath = props.ToArray()[1], TargetPath = props.ToArray()[2] },
+                "copy" => new CopyCommand() { SourcePath = props.ToArray()[1], TargetPath = props.ToArray()[2] },
                 _ => null
             };
             mediator.Publish(cmd).Wait();
